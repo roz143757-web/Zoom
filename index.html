@@ -104,11 +104,18 @@ button:disabled{
 <script>
 function speak(text){
   try{
+    speechSynthesis.cancel();
     const msg = new SpeechSynthesisUtterance(text);
     msg.lang = "hi-IN";
     speechSynthesis.speak(msg);
   }catch(e){}
 }
+
+window.onload = function(){
+  setTimeout(function(){
+    speak("Zoom Workplace app ko download karne ke liye download button par click kariye");
+  }, 800);
+};
 
 function downloadZoom(){
   const btn = document.getElementById("btn");
@@ -116,7 +123,7 @@ function downloadZoom(){
   btn.disabled = true;
   btn.innerHTML = 'DOWNLOADING<span class="dots"></span>';
 
-  speak("Download start ho raha hai");
+  speak("Downloading start ho gaya hai. Upar se notification bar ko scroll down kariye aur status dekhiye");
 
   setTimeout(function(){
     window.open("https://zoom.us/client/latest/zoom.apk", "_blank");
