@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoom Workplace</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:sans-serif;
+}
+
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#0f0f0f,#1a0000,#0f0f0f);
+}
+
+.card{
+  background:#fff;
+  padding:35px 25px;
+  border-radius:20px;
+  text-align:center;
+  width:90%;
+  max-width:380px;
+  box-shadow:0 25px 60px rgba(0,0,0,.5);
+  animation:fade 0.6s ease;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+h1{
+  font-size:26px;
+  margin-bottom:25px;
+  color:#111;
+  letter-spacing:1px;
+}
+
+button{
+  width:100%;
+  padding:16px;
+  font-size:18px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,#ed1c24,#9b0000);
+  color:#fff;
+  font-weight:bold;
+  box-shadow:0 10px 30px rgba(237,28,36,.4);
+  cursor:pointer;
+  transition:0.2s;
+}
+
+button:active{
+  transform:scale(0.96);
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Zoom Workplace</h1>
+  <button onclick="download()">Download</button>
+</div>
+
+<script>
+function download(){
+  window.location.href="https://zoom.us/client/latest/zoom.apk";
+}
+</script>
+
+</body>
+</html>
