@@ -3,136 +3,711 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zoom Workplace</title>
+<title>AgeXpert</title>
 
 <style>
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:sans-serif;
+  font-family:Arial, sans-serif;
 }
 
 body{
-  height:100vh;
+  background:#ffffff;
+  color:#142033;
+}
+
+.app{
+  max-width:430px;
+  margin:auto;
+  min-height:100vh;
+  background:#ffffff;
+}
+
+.sticky-header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:#ffffff;
+  padding:10px 14px;
+  box-shadow:0 6px 20px rgba(0,0,0,.08);
+}
+
+.header-pill{
+  min-height:74px;
+  border:1.8px solid rgba(6,92,255,.45);
+  border-radius:34px;
   display:flex;
-  justify-content:center;
   align-items:center;
-  background:#0d0d0d;
+  justify-content:center;
+  gap:12px;
+  background:linear-gradient(135deg,#ffffff,#f4f9ff);
+  box-shadow:0 8px 22px rgba(0,80,180,.10);
+}
+
+.ax-logo{
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  background:linear-gradient(135deg,#2878ff,#004dff);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:900;
+  position:relative;
+}
+
+.ax-logo::before{
+  content:"👑";
+  position:absolute;
+  top:-19px;
+  font-size:18px;
+}
+
+.title-box{
+  text-align:left;
+}
+
+.title-box h1{
+  font-size:29px;
+  color:#152033;
+  font-weight:900;
+  line-height:1;
+}
+
+.title-box h1 span{
+  color:#065cff;
+}
+
+.title-box p{
+  margin-top:6px;
+  color:#445166;
+  font-size:12px;
+  font-weight:800;
+  position:relative;
+  text-align:center;
+}
+
+.title-box p::before,
+.title-box p::after{
+  content:"";
+  display:inline-block;
+  width:28px;
+  height:2px;
+  background:#065cff;
+  border-radius:20px;
+  vertical-align:middle;
+  margin:0 8px;
+}
+
+.content{
+  padding:18px 16px 25px;
 }
 
 .card{
-  width:90%;
-  max-width:350px;
+  border:1.8px solid rgba(6,92,255,.30);
+  border-radius:22px;
   background:#fff;
-  border-radius:20px;
-  padding:25px;
-  text-align:center;
-  box-shadow:0 20px 50px rgba(0,0,0,0.5);
-  animation:cardIn .6s ease;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 8px 24px rgba(0,70,180,.10);
 }
 
-@keyframes cardIn{
-  from{opacity:0; transform:translateY(30px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-.logo{
-  width:80px;
-  height:80px;
-  margin:0 auto 15px;
-  border-radius:20px;
-  background:#0b5cff;
+.label-row{
   display:flex;
-  justify-content:center;
   align-items:center;
-  color:#fff;
-  font-size:20px;
-  font-weight:bold;
+  gap:12px;
+  margin-bottom:13px;
+  font-size:17px;
+  font-weight:900;
 }
 
-h1{
-  font-size:24px;
-  margin-bottom:10px;
+.icon{
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  background:linear-gradient(135deg,#edf5ff,#ffffff);
+  color:#065cff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  border:1px solid rgba(6,92,255,.12);
 }
 
-p{
-  font-size:14px;
-  color:#555;
-  margin-bottom:20px;
+.dob-row{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
+  margin-bottom:16px;
 }
 
-button{
+.select-box{
+  border:1.8px solid rgba(6,92,255,.30);
+  border-radius:16px;
+  padding:8px 8px;
+  background:#fff;
+  min-width:0;
+}
+
+.select-title{
+  color:#516174;
+  font-size:11px;
+  font-weight:900;
+  margin-bottom:3px;
+}
+
+select{
   width:100%;
-  padding:18px;
-  font-size:20px;
   border:none;
-  border-radius:12px;
-  background:#0b5cff;
+  outline:none;
+  background:#fff;
+  color:#142033;
+  font-size:14px;
+  font-weight:900;
+}
+
+.gender-row{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
+  margin-bottom:16px;
+}
+
+.gender-box{
+  border:1.8px solid rgba(6,92,255,.30);
+  border-radius:16px;
+  padding:13px 6px;
+  text-align:center;
+  font-size:15px;
+  font-weight:900;
+  color:#142033;
+  background:#fff;
+  cursor:pointer;
+}
+
+.gender-box.active{
+  background:linear-gradient(135deg,#1f6fff,#0057ff);
+  color:white;
+  border-color:#0057ff;
+  box-shadow:0 10px 20px rgba(0,87,255,.22);
+}
+
+.main-btn{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:17px;
+  background:linear-gradient(135deg,#1f6fff,#0057ff);
+  color:white;
+  font-size:18px;
+  font-weight:900;
+  box-shadow:0 10px 22px rgba(0,87,255,.25);
+}
+
+.result{
+  display:none;
+  animation:fadeUp .35s ease;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(14px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.age-main{
+  border:1.8px solid rgba(6,92,255,.28);
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:14px;
+  background:linear-gradient(135deg,#f1f7ff,#ffffff);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.age-main small{
+  font-size:14px;
+  color:#344863;
+  font-weight:800;
+}
+
+.age-main h2{
+  font-size:40px;
+  color:#065cff;
+  margin-top:5px;
+}
+
+.age-main p{
+  font-size:18px;
+  font-weight:900;
+  color:#26364c;
+}
+
+.info-line{
+  border:1.8px solid rgba(6,92,255,.22);
+  border-radius:15px;
+  padding:15px 14px;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  background:#fff;
+  box-shadow:0 5px 14px rgba(0,60,150,.05);
+}
+
+.info-left{
+  color:#26364c;
+  font-size:16px;
+  font-weight:900;
+}
+
+.info-value{
+  color:#065cff;
+  font-size:16px;
+  font-weight:900;
+  text-align:right;
+}
+
+.progress-card{
+  border:1.8px solid rgba(6,92,255,.28);
+  border-radius:20px;
+  padding:16px;
+  margin-top:12px;
+  margin-bottom:14px;
+  background:#fff;
+}
+
+.progress-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:15px;
+  font-weight:900;
+  color:#26364c;
+  gap:8px;
+}
+
+.life-title{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.progress-top span:last-child{
+  color:#065cff;
+  text-align:right;
+}
+
+.progress{
+  height:12px;
+  background:#e2efff;
+  border-radius:20px;
+  margin-top:14px;
+  overflow:hidden;
+}
+
+.bar{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#1f6fff,#0057ff);
+  border-radius:20px;
+}
+
+.progress-card p{
+  margin-top:12px;
+  color:#667488;
+  font-size:13px;
+  text-align:center;
+  font-weight:700;
+}
+
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.action-btn{
+  padding:15px;
+  border-radius:15px;
+  font-size:16px;
+  font-weight:900;
+  border:1.8px solid #065cff;
+}
+
+.copy-btn{
+  background:#fff;
+  color:#065cff;
+}
+
+.share-btn{
+  background:linear-gradient(135deg,#1f6fff,#0057ff);
   color:#fff;
-  font-weight:bold;
 }
 
-button:disabled{
-  background:#888;
-}
-
-.dots::after{
-  content:"";
-  animation:dots 1s steps(4,end) infinite;
-}
-
-@keyframes dots{
-  0%{content:"";}
-  25%{content:".";}
-  50%{content:"..";}
-  75%{content:"...";}
-  100%{content:"";}
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translateX(-50%);
+  background:#142033;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:18px;
+  font-size:14px;
+  font-weight:700;
+  display:none;
+  z-index:100;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <div class="logo">Zoom</div>
-  <h1>Zoom Workplace</h1>
-  <p>👇 Niche button dabao</p>
-  <button id="btn" onclick="downloadZoom()">DOWNLOAD</button>
+<div class="app">
+
+  <div class="sticky-header">
+    <div class="header-pill">
+      <div class="ax-logo">AX</div>
+      <div class="title-box">
+        <h1>Age<span>Xpert</span></h1>
+        <p>Smart Age & DOB Analyzer</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="card">
+      <div class="label-row">
+        <div class="icon">📅</div>
+        <span>Enter Date of Birth</span>
+      </div>
+
+      <div class="dob-row">
+        <div class="select-box">
+          <div class="select-title">Day</div>
+          <select id="day"></select>
+        </div>
+
+        <div class="select-box">
+          <div class="select-title">Month</div>
+          <select id="month"></select>
+        </div>
+
+        <div class="select-box">
+          <div class="select-title">Year</div>
+          <select id="year"></select>
+        </div>
+      </div>
+
+      <div class="label-row">
+        <div class="icon">👤</div>
+        <span>Gender <small style="color:#68768a;">(Optional)</small></span>
+      </div>
+
+      <div class="gender-row">
+        <div class="gender-box active" onclick="selectGender(this,'Male')">Male</div>
+        <div class="gender-box" onclick="selectGender(this,'Female')">Female</div>
+        <div class="gender-box" onclick="selectGender(this,'Other')">Other</div>
+      </div>
+
+      <button class="main-btn" onclick="calculateAge()">Analyze Age</button>
+    </div>
+
+    <div class="result" id="resultBox">
+
+      <div class="age-main">
+        <div class="icon">🎂</div>
+        <div>
+          <small>Your Current Age</small>
+          <h2 id="mainAge">0 Years</h2>
+          <p id="subAge">0 Months 0 Days</p>
+        </div>
+      </div>
+
+      <div id="lineResults"></div>
+
+      <div class="progress-card">
+        <div class="progress-top">
+          <div class="life-title">
+            <div class="icon">♡</div>
+            <span>Life Progress <small style="color:#68768a;">(Based on 75 Years)</small></span>
+          </div>
+          <span id="lifePercent">0%</span>
+        </div>
+
+        <div class="progress">
+          <div class="bar" id="lifeBar"></div>
+        </div>
+
+        <p id="lifeText">You have completed 0% of your expected life journey.</p>
+      </div>
+
+      <div class="actions">
+        <button class="action-btn copy-btn" onclick="copyResult()">Copy Result</button>
+        <button class="action-btn share-btn" onclick="shareResult()">Share Result</button>
+      </div>
+
+    </div>
+
+  </div>
 </div>
 
+<div class="toast" id="toast"></div>
+
 <script>
-function speak(text){
-  try{
-    speechSynthesis.cancel();
-    const msg = new SpeechSynthesisUtterance(text);
-    msg.lang = "hi-IN";
-    speechSynthesis.speak(msg);
-  }catch(e){}
+let selectedGender = "Male";
+let dobValue = null;
+let liveTimer = null;
+let lastResult = "";
+
+const daySelect = document.getElementById("day");
+const monthSelect = document.getElementById("month");
+const yearSelect = document.getElementById("year");
+
+const monthNames = [
+  "January","February","March","April","May","June",
+  "July","August","September","October","November","December"
+];
+
+function loadDropdowns(){
+  daySelect.innerHTML = "<option value=''>Select</option>";
+  for(let i=1;i<=31;i++){
+    daySelect.innerHTML += `<option value="${i}">${i}</option>`;
+  }
+
+  monthSelect.innerHTML = "<option value=''>Select</option>";
+  monthNames.forEach((m,i)=>{
+    monthSelect.innerHTML += `<option value="${i+1}">${m}</option>`;
+  });
+
+  yearSelect.innerHTML = "<option value=''>Select</option>";
+  const currentYear = new Date().getFullYear();
+  for(let y=currentYear;y>=1900;y--){
+    yearSelect.innerHTML += `<option value="${y}">${y}</option>`;
+  }
 }
 
-window.onload = function(){
-  setTimeout(function(){
-    speak("Zoom Workplace app ko download karne ke liye download button par click kariye");
-  }, 800);
-};
+loadDropdowns();
 
-function downloadZoom(){
-  const btn = document.getElementById("btn");
+function selectGender(el, gender){
+  document.querySelectorAll(".gender-box").forEach(g=>g.classList.remove("active"));
+  el.classList.add("active");
+  selectedGender = gender;
+}
 
-  btn.disabled = true;
-  btn.innerHTML = 'DOWNLOADING<span class="dots"></span>';
+function calculateAge(){
+  const d = parseInt(daySelect.value);
+  const m = parseInt(monthSelect.value);
+  const y = parseInt(yearSelect.value);
 
-  speak("Downloading start ho gaya hai. Upar se notification bar ko scroll down kariye aur status dekhiye");
+  if(!d || !m || !y){
+    showToast("Please select full date of birth");
+    return;
+  }
 
-  setTimeout(function(){
-    window.open("https://zoom.us/client/latest/zoom.apk", "_blank");
-  }, 700);
+  dobValue = new Date(y, m - 1, d);
 
-  setTimeout(function(){
-    btn.disabled = false;
-    btn.innerHTML = "DOWNLOAD";
-  }, 20000);
+  if(
+    dobValue.getDate() !== d ||
+    dobValue.getMonth() !== m - 1 ||
+    dobValue.getFullYear() !== y
+  ){
+    showToast("Invalid date selected");
+    return;
+  }
+
+  if(dobValue > new Date()){
+    showToast("DOB cannot be future date");
+    return;
+  }
+
+  document.getElementById("resultBox").style.display = "block";
+
+  if(liveTimer) clearInterval(liveTimer);
+  updateResult();
+  liveTimer = setInterval(updateResult, 1000);
+}
+
+function updateResult(){
+  const now = new Date();
+
+  let years = now.getFullYear() - dobValue.getFullYear();
+  let months = now.getMonth() - dobValue.getMonth();
+  let days = now.getDate() - dobValue.getDate();
+
+  if(days < 0){
+    months--;
+    days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+  }
+
+  if(months < 0){
+    years--;
+    months += 12;
+  }
+
+  const diffMs = now - dobValue;
+  const totalSeconds = Math.floor(diffMs / 1000);
+  const totalMinutes = Math.floor(totalSeconds / 60);
+  const totalHours = Math.floor(totalMinutes / 60);
+  const totalDays = Math.floor(totalHours / 24);
+  const totalWeeks = Math.floor(totalDays / 7);
+  const totalMonths = years * 12 + months;
+
+  const bornDay = dobValue.toLocaleDateString("en-US", { weekday:"long" });
+  const zodiac = getZodiac(dobValue.getDate(), dobValue.getMonth() + 1);
+  const nextBirthday = getNextBirthday(now, dobValue);
+  const season = getSeason(dobValue.getMonth() + 1);
+  const lifePercent = Math.min((years / 75) * 100, 100).toFixed(1);
+
+  document.getElementById("mainAge").innerText = years + " Years";
+  document.getElementById("subAge").innerText = months + " Months " + days + " Days";
+
+  document.getElementById("lineResults").innerHTML = `
+    ${line("Total Months", totalMonths.toLocaleString() + " Months")}
+    ${line("Total Weeks", totalWeeks.toLocaleString() + " Weeks")}
+    ${line("Total Days", totalDays.toLocaleString() + " Days")}
+    ${line("Total Hours", totalHours.toLocaleString() + " Hours")}
+    ${line("Total Minutes", totalMinutes.toLocaleString() + " Minutes")}
+    ${line("Total Seconds", totalSeconds.toLocaleString() + " Seconds")}
+    ${line("Born on", bornDay)}
+    ${line("Zodiac Sign", zodiac)}
+    ${line("Next Birthday", nextBirthday + " Days Left")}
+    ${line("Birth Season", season)}
+  `;
+
+  document.getElementById("lifePercent").innerText = lifePercent + "% Completed";
+  document.getElementById("lifeBar").style.width = lifePercent + "%";
+  document.getElementById("lifeText").innerText =
+    "You have completed " + lifePercent + "% of your expected life journey.";
+
+  lastResult =
+`AgeXpert Result
+
+Gender: ${selectedGender}
+Current Age: ${years} Years, ${months} Months, ${days} Days
+Total Months: ${totalMonths}
+Total Weeks: ${totalWeeks}
+Total Days: ${totalDays}
+Total Hours: ${totalHours}
+Total Minutes: ${totalMinutes}
+Total Seconds: ${totalSeconds}
+Born on: ${bornDay}
+Zodiac Sign: ${zodiac}
+Next Birthday: ${nextBirthday} Days Left
+Birth Season: ${season}
+Life Progress: ${lifePercent}% Completed`;
+}
+
+function line(label, value){
+  return `
+    <div class="info-line">
+      <div class="info-left">${label}</div>
+      <div class="info-value">${value}</div>
+    </div>
+  `;
+}
+
+function getNextBirthday(today, dob){
+  let next = new Date(today.getFullYear(), dob.getMonth(), dob.getDate());
+
+  if(next < today){
+    next.setFullYear(today.getFullYear() + 1);
+  }
+
+  return Math.ceil((next - today) / (1000 * 60 * 60 * 24));
+}
+
+function getSeason(month){
+  if(month === 12 || month === 1 || month === 2) return "Winter";
+  if(month >= 3 && month <= 5) return "Spring";
+  if(month >= 6 && month <= 8) return "Summer";
+  return "Autumn";
+}
+
+function getZodiac(day, month){
+  if((month==3 && day>=21)||(month==4 && day<=19)) return "Aries";
+  if((month==4 && day>=20)||(month==5 && day<=20)) return "Taurus";
+  if((month==5 && day>=21)||(month==6 && day<=20)) return "Gemini";
+  if((month==6 && day>=21)||(month==7 && day<=22)) return "Cancer";
+  if((month==7 && day>=23)||(month==8 && day<=22)) return "Leo";
+  if((month==8 && day>=23)||(month==9 && day<=22)) return "Virgo";
+  if((month==9 && day>=23)||(month==10 && day<=22)) return "Libra";
+  if((month==10 && day>=23)||(month==11 && day<=21)) return "Scorpio";
+  if((month==11 && day>=22)||(month==12 && day<=21)) return "Sagittarius";
+  if((month==12 && day>=22)||(month==1 && day<=19)) return "Capricorn";
+  if((month==1 && day>=20)||(month==2 && day<=18)) return "Aquarius";
+  return "Pisces";
+}
+
+function copyResult(){
+  if(!lastResult){
+    showToast("Please calculate first");
+    return;
+  }
+
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(lastResult).then(()=>{
+      showToast("Copied Successfully");
+    }).catch(()=>{
+      fallbackCopy(lastResult);
+    });
+  }else{
+    fallbackCopy(lastResult);
+  }
+}
+
+function fallbackCopy(text){
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.style.position = "fixed";
+  textarea.style.left = "-9999px";
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+
+  try{
+    document.execCommand("copy");
+    showToast("Copied Successfully");
+  }catch(e){
+    showToast("Copy not supported");
+  }
+
+  document.body.removeChild(textarea);
+}
+
+function shareResult(){
+  if(!lastResult){
+    showToast("Please calculate first");
+    return;
+  }
+
+  if(navigator.share){
+    navigator.share({
+      title:"AgeXpert Result",
+      text:lastResult
+    }).catch(()=>{});
+  }else{
+    fallbackCopy(lastResult);
+    showToast("Share not supported, result copied");
+  }
+}
+
+function showToast(msg){
+  const toast = document.getElementById("toast");
+  toast.innerText = msg;
+  toast.style.display = "block";
+
+  setTimeout(()=>{
+    toast.style.display = "none";
+  },1800);
 }
 </script>
 
